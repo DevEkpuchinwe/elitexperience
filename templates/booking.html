@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book {{ celeb.name }} - Exclusive Experience</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="{{ url_for('celeb_page', celeb_name=celeb_name) }}" class="back-link">← Back to {{ celeb.name }}</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="booking-page">
+        <div class="container">
+            <div class="booking-hero">
+                <div class="booking-icon">💖</div>
+                <h1 class="booking-title">
+                    Want To Have Your Personal Moment With 
+                    <span class="highlight">{{ celeb.name }}</span>?
+                </h1>
+                <p class="booking-subtitle">You're just one step away from an unforgettable experience!</p>
+                <p class="booking-text">
+                    Fill out the form below and our team will personally coordinate everything for you. 
+                    Limited slots available - don't miss this exclusive opportunity!
+                </p>
+            </div>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <div class="booking-form-container">
+                <form method="POST" class="booking-form" id="bookingForm">
+                    <!-- Name -->
+                    <div class="form-group">
+                        <label for="name">Full Name <span class="required">*</span></label>
+                        <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                    </div>
+
+                    <!-- Country & Address -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="country">Country <span class="required">*</span></label>
+                            <input type="text" id="country" name="country" required placeholder="Your country">
+                        </div>
+                        <div class="form-group">
+                            <label for="address">City/Address <span class="required">*</span></label>
+                            <input type="text" id="address" name="address" required placeholder="City or address">
+                        </div>
+                    </div>
+
+                    <!-- Phone & Email -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Phone Number <span class="required">*</span></label>
+                            <input type="tel" id="phone" name="phone" required placeholder="WhatsApp preferred">
+                            <small>WhatsApp preferred for faster communication</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" required placeholder="your@email.com">
+                        </div>
+                    </div>
+
+                    <!-- Services Selection -->
+                    <div class="form-group">
+                        <label>What Are You Interested In? <span class="required">*</span></label>
+                        <div class="services-selection">
+                            <div class="service-option highlight-option">
+                                <input type="checkbox" id="service-all" name="services" value="all" onchange="toggleAllServices(this)">
+                                <label for="service-all">
+                                    <span class="service-name">✨ All Services (Best Value!)</span>
+                                    <span class="service-desc">Get the complete VIP experience</span>
+                                </label>
+                            </div>
+
+                            {% for service in services %}
+                            <div class="service-option">
+                                <input type="checkbox" id="service-{{ service.id }}" name="services" value="{{ service.id }}" class="service-checkbox">
+                                <label for="service-{{ service.id }}">
+                                    <span class="service-name">{{ service.name }}</span>
+                                    <span class="service-desc">{{ service.description }}</span>
+                                </label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Occupation & Age -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="occupation">Occupation</label>
+                            <input type="text" id="occupation" name="occupation" placeholder="Your occupation">
+                        </div>
+                        <div class="form-group">
+                            <label for="age">Age</label>
+                            <input type="text" id="age" name="age" placeholder="Your age">
+                        </div>
+                    </div>
+
+                    <!-- Message -->
+                    <div class="form-group">
+                        <label for="message">Short Message to {{ celeb.name }} <span class="optional">(Optional)</span></label>
+                        <textarea id="message" name="message" rows="5" placeholder="Share your thoughts, why you'd love to meet, or any special requests..."></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-large btn-gradient full-width">
+                        ✓ Submit Booking Request
+                    </button>
+
+                    <p class="form-disclaimer">
+                        By submitting this form, you agree to be contacted by our team via email, phone, or WhatsApp
+                        regarding your booking request. We typically respond within 24 hours.
+                    </p>
+                </form>
+            </div>
+
+            <div class="trust-badges">
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>100% Secure & Confidential</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>Official {{ celeb.management }} Authorized</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>No Hidden Fees</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleAllServices(checkbox) {
+            const serviceCheckboxes = document.querySelectorAll('.service-checkbox');
+            serviceCheckboxes.forEach(cb => {
+                cb.checked = checkbox.checked;
+                cb.disabled = checkbox.checked;
+            });
+        }
+
+        // Form validation
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            const services = document.querySelectorAll('input[name="services"]:checked');
+            if (services.length === 0) {
+                e.preventDefault();
+                alert('Please select at least one service');
+            }
+        });
+    </script>
+
+    <!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/69d9ee6c83428a1c31aa69d5/1jltkmmi5';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+
+</body>
+</html>

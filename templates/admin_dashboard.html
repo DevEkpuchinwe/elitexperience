@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header admin-header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">Admin Dashboard</div>
+                <a href="{{ url_for('admin_logout') }}" class="btn btn-secondary">Logout</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="admin-dashboard">
+        <div class="container">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <!-- Stats -->
+            <div class="admin-stats">
+                <div class="stat-card">
+                    <div class="stat-number">{{ bookings|length }}</div>
+                    <div class="stat-label">Total Entries</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">{{ bookings|selectattr('emailSent', 'equalto', True)|list|length }}</div>
+                    <div class="stat-label">Emails Sent</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">{{ bookings|selectattr('emailSent', 'equalto', False)|list|length }}</div>
+                    <div class="stat-label">Pending</div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="admin-controls">
+                <input type="text" id="searchInput" placeholder="Search entries..." class="search-input" onkeyup="filterTable()">
+                <div class="filter-buttons">
+                    <button class="btn btn-secondary active" onclick="filterByStatus('all')">All</button>
+                    <button class="btn btn-secondary" onclick="filterByStatus('sent')">Sent</button>
+                    <button class="btn btn-secondary" onclick="filterByStatus('pending')">Pending</button>
+                </div>
+            </div>
+
+            <!-- Email Composer -->
+            <div id="emailComposer" class="email-composer" style="display: none;">
+                <h3>Compose Email</h3>
+                <div class="form-group">
+                    <label>To: <span id="selectedEmails"></span></label>
+                </div>
+                <div class="form-group">
+                    <label>Subject:</label>
+                    <input type="text" id="emailSubject" placeholder="Email subject">
+                </div>
+                <div class="form-group">
+                    <label>Message:</label>
+                    <textarea id="emailBody" rows="8" placeholder="Email body"></textarea>
+                </div>
+                <div class="email-actions">
+                    <button class="btn btn-primary" onclick="sendEmail()">📧 Send Email</button>
+                    <button class="btn btn-secondary" onclick="closeEmailComposer()">Cancel</button>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="table-container">
+                <table class="admin-table" id="bookingsTable">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="selectAll" onchange="toggleSelectAll(this)"></th>
+                            <th>Name</th>
+                            <th>Celebrity</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Country</th>
+                            <th>Services</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for booking in bookings %}
+                        {% set services = booking.selectedServices.split(',') %}
+                        <tr data-status="{{ 'sent' if booking.emailSent else 'pending' }}">
+                            <td><input type="checkbox" class="row-checkbox" data-email="{{ booking.email }}" data-id="{{ booking.id }}"></td>
+                            <td>{{ booking.name }}</td>
+                            <td>{{ booking.celeb_name.replace('-', ' ').title() }}</td>
+                            <td><a href="mailto:{{ booking.email }}">{{ booking.email }}</a></td>
+                            <td>{{ booking.phone }}</td>
+                            <td>{{ booking.country }}</td>
+                            <td>
+                                <div class="services-tags">
+                                    {% for service in services[:2] %}
+                                    <span class="tag">{{ service }}</span>
+                                    {% endfor %}
+                                    {% if services|length > 2 %}
+                                    <span class="tag">+{{ services|length - 2 }}</span>
+                                    {% endif %}
+                                </div>
+                            </td>
+                            <td>{{ booking.submittedAt.strftime('%Y-%m-%d') }}</td>
+                            <td>
+                                {% if booking.emailSent %}
+                                <span class="badge badge-success">✓ Sent</span>
+                                {% else %}
+                                <span class="badge badge-warning">Pending</span>
+                                {% endif %}
+                            </td>
+                        <td>
+    <div class="action-buttons">
+        <button class="btn-icon tooltip" onclick="emailSingle('{{ booking.email }}', '{{ booking.id }}')">
+            📧
+            <span class="tooltip-text">Send Email</span>
+        </button>
+
+        <button class="btn-icon tooltip" onclick="toggleDetails('{{ booking.id }}')">
+            ▼
+            <span class="tooltip-text">View Details</span>
+        </button>
+
+        {% if not booking.emailSent %}
+        <form method="POST" action="{{ url_for('mark_sent', booking_id=booking.id) }}" style="display:inline;">
+            <button type="submit" class="btn-icon tooltip">
+                ✓
+                <span class="tooltip-text">Mark as Sent</span>
+            </button>
+        </form>
+        {% endif %}
+
+        <form method="POST" action="{{ url_for('delete_booking', booking_id=booking.id) }}" style="display:inline;" onsubmit="return confirm('Delete?')">
+            <button type="submit" class="btn-icon btn-danger tooltip">
+                🗑️
+                <span class="tooltip-text">Delete Booking</span>
+            </button>
+        </form>
+    </div>
+</td>   
+                        </tr>
+
+                        <!-- DROPDOWN DETAILS -->
+                        <tr id="details-{{ booking.id }}" style="display:none;">
+                            <td colspan="9">
+                                <div class="details-box">
+                                    <p><b>Name:</b> {{ booking.name }}</p>
+                                    <p><b>Email:</b> {{ booking.email }}</p>
+                                    <p><b>Phone:</b> {{ booking.phone }}</p>
+                                    <p><b>Country:</b> {{ booking.country }}</p>
+                                    <p><b>Address:</b> {{ booking.address }}</p>
+                                    <p><b>Occupation:</b> {{ booking.occupation }}</p>
+                                    <p><b>Age:</b> {{ booking.age }}</p>
+                                    <p><b>Services:</b> {{ booking.selectedServices }}</p>
+                                    <p><b>Message:</b> {{ booking.message }}</p>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                {% if not bookings %}
+                <div class="empty-state">
+                    <p>No bookings yet</p>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="bulk-actions">
+                <button class="btn btn-primary" onclick="openEmailComposer()">📧 Email Selected</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedBookings = [];
+
+        function toggleDetails(id) {
+            const row = document.getElementById(`details-${id}`);
+            row.style.display = row.style.display === 'none' ? 'table-row' : 'none';
+        }
+
+        function toggleSelectAll(checkbox) {
+            const checkboxes = document.querySelectorAll('.row-checkbox');
+            checkboxes.forEach(cb => cb.checked = checkbox.checked);
+            updateSelectedBookings();
+        }
+
+        function updateSelectedBookings() {
+            const checkboxes = document.querySelectorAll('.row-checkbox:checked');
+            selectedBookings = Array.from(checkboxes).map(cb => ({
+                email: cb.dataset.email,
+                id: cb.dataset.id
+            }));
+        }
+
+        function openEmailComposer() {
+            updateSelectedBookings();
+            if (selectedBookings.length === 0) {
+                alert('Select at least one');
+                return;
+            }
+            document.getElementById('emailComposer').style.display = 'block';
+            document.getElementById('selectedEmails').textContent = selectedBookings.map(b => b.email).join(', ');
+        }
+
+        function closeEmailComposer() {
+            document.getElementById('emailComposer').style.display = 'none';
+        }
+
+        function emailSingle(email, id) {
+            selectedBookings = [{email: email, id: id}];
+            openEmailComposer();
+        }
+
+        function sendEmail() {
+            const subject = document.getElementById('emailSubject').value;
+            const body = document.getElementById('emailBody').value;
+
+            if (!subject || !body) {
+                alert('Fill all fields');
+                return;
+            }
+
+            fetch('/admin/send-email', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    emails: selectedBookings.map(b => b.email),
+                    subject: subject,
+                    body: body
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Emails sent ✅');
+
+                    selectedBookings.forEach(b => {
+                        fetch(`/admin/mark-sent/${b.id}`, { method: 'POST' })
+                            .then(() => location.reload());
+                    });
+
+                    closeEmailComposer();
+                } else {
+                    alert('Failed ❌');
+                }
+            });
+        }
+
+        function filterTable() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const rows = document.querySelectorAll('#bookingsTable tbody tr');
+
+            rows.forEach(row => {
+                row.style.display = row.textContent.toLowerCase().includes(input) ? '' : 'none';
+            });
+        }
+
+        function filterByStatus(status) {
+            const rows = document.querySelectorAll('#bookingsTable tbody tr');
+            rows.forEach(row => {
+                if (!row.dataset.status) return;
+                row.style.display = (status === 'all' || row.dataset.status === status) ? '' : 'none';
+            });
+        }
+    </script>
+
+</body>
+</html>

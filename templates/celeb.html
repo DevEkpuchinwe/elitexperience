@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ celeb.name }} - Official Booking</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header header-fixed">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">{{ celeb.name }}</div>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#benefits">Benefits</a></li>
+                    <li><a href="#meeting">What to Expect</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#photos">Gallery</a></li>
+                    <li><a href="#process">Process</a></li>
+                </ul>
+                <a href="{{ url_for('booking_page', celeb_name=celeb_name) }}" class="btn btn-primary">Book Now</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="celeb-hero" style="background-image: url('{{ celeb.heroImage }}')">
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <div class="hero-glass-card">
+                <h1 class="hero-title-large">{{ celeb.tagline }}</h1>
+                <p class="hero-text">{{ celeb.heroText }}</p>
+
+                <!-- Stats -->
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-number">{{ celeb.stats.meetGreets }}+</div>
+                        <div class="stat-label">Meet & Greets</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">{{ celeb.stats.privateTime }}+</div>
+                        <div class="stat-label">Private Sessions</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">{{ celeb.stats.ticketsSold }}+</div>
+                        <div class="stat-label">Tickets Sold</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">{{ celeb.stats.fanCards }}+</div>
+                        <div class="stat-label">Fan Cards</div>
+                    </div>
+                </div>
+
+                <div class="management-badge">
+                    🛡️ Authorized by {{ celeb.management }}
+                </div>
+
+                <a href="{{ url_for('booking_page', celeb_name=celeb_name) }}" class="btn btn-large btn-gradient">
+                    ✨ Book Your Exclusive Experience
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+<section class="testimonials section section-dark">
+    <div class="container">
+
+        <div class="section-header">
+            <h2 class="section-title">Real Moments with {{ celeb.name }}</h2>
+            <p class="section-subtitle">
+                Fans who spent real time with {{ celeb.name }} share their experience
+            </p>
+        </div>
+
+        <div class="testimonial-grid">
+
+            <!-- 1 -->
+            <div class="testimonial-card">
+                <p>
+                    “Meeting {{ celeb.name }} was completely different from what I expected.
+                    We actually sat down and talked for almost an hour. It felt natural, not rushed at all.”
+                </p>
+                <div class="testimonial-user">
+                    <div class="avatar">J</div>
+                    <div>
+                        <h4>James Anderson</h4>
+                        <span>Private session • 24 hours</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2 -->
+            <div class="testimonial-card highlight verified">
+            <div class="badge">✔ Verified Meetup</div>
+
+                <p class="highlight-text textlight bold">
+                    “I thought it would just be photos, but {{ celeb.name }} made time to really talk.
+                    We laughed, shared stories, and even walked around together. Unreal experience.”
+                </p>
+                <div class="testimonial-user">
+                    <div class="avatar">E</div>
+                    <div>
+                        <h4>Emily Johnson</h4>
+                        <span>VIP meet & greet • 4 hour+</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3 -->
+            <div class="testimonial-card">
+                <p>
+                    “Spending time with {{ celeb.name }} felt so genuine.
+                    No pressure, no rush — just real conversation and connection.”
+                </p>
+                <div class="testimonial-user">
+                    <div class="avatar">M</div>
+                    <div>
+                        <h4>Michael Brown</h4>
+                        <span>Exclusive meetup • 5 days</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4 -->
+            <div class="testimonial-card">
+                <p>
+                    “I was nervous at first, but {{ celeb.name }} made everything comfortable.
+                    We talked, laughed, and even took extra time beyond what I booked.”
+                </p>
+                <div class="testimonial-user">
+                    <div class="avatar">S</div>
+                    <div>
+                        <h4>Sophia Martinez</h4>
+                        <span>Private hangout • Extended time</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5 -->
+            <div class="testimonial-card">
+                <p>
+                    “This wasn’t just a fan moment — it felt like a real interaction.
+                    {{ celeb.name }} was present, engaged, and genuinely kind.”
+                </p>
+                <div class="testimonial-user">
+                    <div class="avatar">D</div>
+                    <div>
+                        <h4>Daniel Wilson</h4>
+                        <span>Meet & greet • LA</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6 -->
+            <div class="testimonial-card">
+                <p>
+                    “I didn’t expect to spend that much time, but {{ celeb.name }} stayed longer
+                    and made sure the experience was worth it. Truly unforgettable.”
+                </p>
+                <div class="testimonial-user">
+                    <div class="avatar">O</div>
+                    <div>
+                        <h4>Olivia Taylor</h4>
+                        <span>VIP session • 1 month</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Stats -->
+        <div class="testimonial-stats">
+            <div class="stat">
+                <h3>{{ celeb.stats.meetGreets }}+</h3>
+                <p>Meetups Completed with {{ celeb.name }}</p>
+            </div>
+            <div class="stat">
+                <h3>98%</h3>
+                <p>Positive Experiences</p>
+            </div>
+            <div class="stat">
+                <h3>30–90 days</h3>
+                <p>Average Time Spent Together</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+    <!-- Benefits Section -->
+    <section id="benefits" class="section section-dark">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Why Book With Us?</h2>
+                <p class="section-subtitle">Direct access, verified experiences, unforgettable memories</p>
+            </div>
+
+            <div class="benefits-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>100% Verified & Authorized</h3>
+                    <p>All bookings are officially verified by celebrity management teams</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">⭐</div>
+                    <h3>Exclusive Direct Access</h3>
+                    <p>Skip the middlemen - book directly with official representatives</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🏆</div>
+                    <h3>Premium Experience</h3>
+                    <p>VIP treatment with luxury accommodations and top-tier service</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Privacy & Security</h3>
+                    <p>Your information is protected with bank-level encryption</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h3>Personal Coordination</h3>
+                    <p>Dedicated team member to handle all your arrangements</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>Best Value Guarantee</h3>
+                    <p>Competitive pricing with no hidden fees or charges</p>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <a href="{{ url_for('booking_page', celeb_name=celeb_name) }}" class="btn btn-large btn-gradient">Get Started Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Meeting & What to Expect -->
+    <section id="meeting" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">What to Expect</h2>
+                <p class="section-subtitle">We handle everything so you can focus on the experience</p>
+            </div>
+
+            <div class="two-column">
+                <div class="column">
+                    <img src="https://images.unsplash.com/photo-1761110787206-2cc164e4913c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBldmVudCUyMHZlbnVlfGVufDF8fHx8MTc3NTM5Njk0M3ww&ixlib=rb-4.1.0&q=80&w=1080" alt="Luxury venue" class="rounded-img">
+                </div>
+                <div class="column">
+                    <div class="expectation-list">
+                        <div class="expectation-item">
+                            <div class="expectation-icon">🚗</div>
+                            <div>
+                                <h3>Premium Transportation</h3>
+                                <p>Luxury vehicle pickup and drop-off</p>
+                            </div>
+                        </div>
+                        <div class="expectation-item">
+                            <div class="expectation-icon">📍</div>
+                            <div>
+                                <h3>Venue Logistics</h3>
+                                <p>All location arrangements handled for you</p>
+                            </div>
+                        </div>
+                        <div class="expectation-item">
+                            <div class="expectation-icon">🛡️</div>
+                            <div>
+                                <h3>Professional Security</h3>
+                                <p>Trained security personnel for your safety</p>
+                            </div>
+                        </div>
+                        <div class="expectation-item">
+                            <div class="expectation-icon">🎁</div>
+                            <div>
+                                <h3>Welcome Package</h3>
+                                <p>Exclusive merchandise and memorabilia</p>
+                            </div>
+                        </div>
+                        <div class="expectation-item">
+                            <div class="expectation-icon">📸</div>
+                            <div>
+                                <h3>Photo Opportunities</h3>
+                                <p>Professional photography included</p>
+                            </div>
+                        </div>
+                        <div class="expectation-item">
+                            <div class="expectation-icon">💖</div>
+                            <div>
+                                <h3>Memorable Experience</h3>
+                                <p>Create moments that last a lifetime</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <a href="{{ url_for('booking_page', celeb_name=celeb_name) }}" class="btn btn-large btn-gradient">⏱️ Book Your Spot Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Get to Know Section -->
+    <section id="about" class="section section-dark">
+        <div class="container">
+            <div class="text-center max-w-800">
+                <h2 class="section-title">Get to Know {{ celeb.name }}</h2>
+                <p class="bio-text">{{ celeb.bio }}</p>
+                
+                <div class="interests-tags">
+                    {% for interest in celeb.interests %}
+                    <span class="tag">{{ interest }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">What We Offer</h2>
+                <p class="section-subtitle">Choose from our exclusive range of experiences</p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card-premium">
+                    <div class="service-icon">🏆</div>
+                    <h3>Official Fan Card</h3>
+                    <p>Exclusive verified fan card with special perks and benefits</p>
+                </div>
+
+                <div class="service-card-premium">
+                    <div class="service-icon">👥</div>
+                    <h3>Meet & Greet</h3>
+                    <p>Personal meet and greet session with photo opportunities</p>
+                </div>
+
+                <div class="service-card-premium">
+                    <div class="service-icon">🎟️</div>
+                    <h3>Concert Tickets</h3>
+                    <p>Premium tickets to upcoming shows and events</p>
+                </div>
+
+                <div class="service-card-premium">
+                    <div class="service-icon">⭐</div>
+                    <h3>Premium VIP Seats</h3>
+                    <p>Front row and VIP seating arrangements</p>
+                </div>
+
+                <div class="service-card-premium">
+                    <div class="service-icon">✨</div>
+                    <h3>After Event Meet-up</h3>
+                    <p>Exclusive backstage access after the show</p>
+                </div>
+
+                <div class="service-card-premium">
+                    <div class="service-icon">📸</div>
+                    <h3>Photo Session</h3>
+                    <p>Professional photo opportunity with the celebrity</p>
+                </div>
+
+                <div class="service-card-premium">
+                    <div class="service-icon">💖</div>
+                    <h3>Private Time Together</h3>
+                    <p>One-on-one exclusive time with your favorite star</p>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <a href="{{ url_for('booking_page', celeb_name=celeb_name) }}" class="btn btn-large btn-gradient">Explore All Services</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Photos Gallery -->
+    <section id="photos" class="section section-dark">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Gallery</h2>
+                <p class="section-subtitle">Moments from previous experiences</p>
+            </div>
+
+            <div class="gallery-grid">
+                {% for photo in celeb.photos %}
+                <div class="gallery-item">
+                    <img src="{{ photo }}" alt="Gallery image">
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="process" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">How It Works</h2>
+                <p class="section-subtitle">Simple, secure, and seamless booking process</p>
+            </div>
+
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h3>💬 Submit Your Details</h3>
+                        <p>Fill out the booking form with your preferences and information</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h3>📅 Schedule Coordination</h3>
+                        <p>We add your request to the celebrity's schedule and confirm availability</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h3>📍 Arrangements & Logistics</h3>
+                        <p>Our team handles all logistics, transportation, and venue arrangements</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">04</div>
+                    <div class="step-content">
+                        <h3>🛡️ Security & Preparation</h3>
+                        <p>Professional security and all necessary preparations are put in place</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">05</div>
+                    <div class="step-content">
+                        <h3>⭐ Experience Day</h3>
+                        <p>We connect you with the celebrity and ensure everything goes perfectly</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">06</div>
+                    <div class="step-content">
+                        <h3>✅ Follow-up</h3>
+                        <p>Post-event support and ensuring your experience exceeded expectations</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <a href="{{ url_for('booking_page', celeb_name=celeb_name) }}" class="btn btn-large btn-gradient">✨ Start Your Booking Journey</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content text-center">
+                <p>&copy; 2026 {{ celeb.name }} Official Booking. Authorized by {{ celeb.management }}</p>
+                <p class="mt-1">All experiences are verified and managed by official representatives</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

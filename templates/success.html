@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Submission Successful</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0b0b0b;
+    color: white;
+}
+
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.card {
+    background: #111;
+    border-radius: 16px;
+    padding: 40px;
+    max-width: 520px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+
+.success-icon {
+    font-size: 60px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    margin: 10px 0;
+}
+
+p {
+    color: #bbb;
+    line-height: 1.6;
+}
+
+.highlight {
+    color: #fff;
+    font-weight: bold;
+}
+
+.contact-box {
+    margin-top: 25px;
+    padding: 20px;
+    background: #1a1a1a;
+    border-radius: 12px;
+}
+
+.btn {
+    display: block;
+    margin-top: 10px;
+    padding: 12px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.btn-whatsapp {
+    background: #25D366;
+    color: black;
+}
+
+.btn-telegram {
+    background: #0088cc;
+    color: white;
+}
+
+.btn-home {
+    margin-top: 20px;
+    background: white;
+    color: black;
+}
+
+.footer-links {
+    margin-top: 20px;
+}
+
+.footer-links a {
+    color: #888;
+    margin: 0 10px;
+    font-size: 13px;
+    text-decoration: none;
+}
+</style>
+
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="card">
+
+        <div class="success-icon">✅</div>
+
+        <h1>Request Submitted Successfully</h1>
+
+        {% if celeb_name %}
+        <p>
+            Your request for <span class="highlight">{{ celeb_name.replace('-', ' ').title() }}</span>
+            has been received.
+        </p>
+        {% else %}
+        <p>Your request has been received successfully.</p>
+        {% endif %}
+
+        <p>
+            Our management team will review your submission and contact you shortly.
+        </p>
+
+        <div class="contact-box">
+
+            <p><b>Need faster response?</b></p>
+
+            <a href="https://wa.me/19125483232" class="btn btn-whatsapp" target="_blank">
+                💬 WhatsApp Us
+            </a>
+
+            <a href="https://t.me/elitexperience" class="btn btn-telegram" target="_blank">
+                📩 Telegram (@elitexperience)
+            </a>
+
+        </div>
+
+        {% if celeb_name %}
+        <a href="/celeb/{{ celeb_name }}" class="btn btn-home">
+            ⬅ Back to {{ celeb_name.replace('-', ' ').title() }}
+        </a>
+        {% else %}
+        <a href="/" class="btn btn-home">
+            ⬅ Back to Home
+        </a>
+        {% endif %}
+
+        <div class="footer-links">
+            <a href="/privacy">Privacy Policy</a>
+            <a href="/terms">Terms of Service</a>
+            <a href="/cookies">Cookie Policy</a>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

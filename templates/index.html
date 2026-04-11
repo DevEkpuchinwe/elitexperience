@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Xperience - Premium Celebrity Booking Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">Elite Xperience</div>
+                <ul class="nav-menu">
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#clients">Our Clients</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <a href="#contact" class="btn btn-primary">Get Started</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-background"></div>
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">Connect Fans with Their Favorite Stars</h1>
+                <p class="hero-subtitle">Premier celebrity booking and fan experience management platform. We handle everything from meet & greets to exclusive private events.</p>
+                <div class="hero-buttons">
+                     <a href="#clients" class="btn btn-large btn-secondary">Check Out Our Celebrities</a>
+                    <a href="#contact" class="btn btn-large btn-primary">Partner With Us</a>
+                    <a href="#how-it-works" class="btn btn-large btn-secondary">Learn More</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Celebrities</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">50K+</div>
+                        <div class="stat-label">Bookings</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">Satisfaction</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+    <div class="container">
+
+        <div class="section-header">
+            <h2>Real Experiences. Real Moments.</h2>
+            <p>Thousands have already spent real time with their favorite celebrities.</p>
+        </div>
+
+        <div class="testimonial-grid">
+
+            <!-- 1 -->
+            <div class="testimonial-card">
+                <p>“I met Taylor Swift and we actually talked for almost an hour. It wasn’t rushed at all. We laughed, shared stories, and even took a walk. It felt unreal.”</p>
+                <div class="testimonial-user">
+                    <div class="avatar">J</div>
+                    <div>
+                        <h4>Jason Miller</h4>
+                        <span>Met Taylor Swift • 50 hours</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2 -->
+            <div class="testimonial-card highlight">
+                <div class="badge">✔ Verified Meetup</div>
+                <p>“I spent time with Michael B. Jordan and he was so down to earth. We talked about life, movies, and even grabbed food together. Best day ever.”</p>
+                <div class="testimonial-user">
+                    <div class="avatar">E</div>
+                    <div>
+                        <h4>Emily Carter</h4>
+                        <span>Private hangout • 5 hour+</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3 -->
+            <div class="testimonial-card">
+                <p>“I met Ariana Grande and she was incredibly kind. We sat and talked like normal people. No pressure, no rush. Just genuine time together.”</p>
+                <div class="testimonial-user">
+                    <div class="avatar">D</div>
+                    <div>
+                        <h4>David Thompson</h4>
+                        <span>Meet & greet • LA</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4 -->
+            <div class="testimonial-card">
+                <p>“I met Chris Hemsworth and he was super chill. We talked about fitness and life, and even took photos after. Felt like hanging out with a friend.”</p>
+                <div class="testimonial-user">
+                    <div class="avatar">S</div>
+                    <div>
+                        <h4>Samantha Brooks</h4>
+                        <span>Exclusive meetup • 12 hours</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5 -->
+            <div class="testimonial-card">
+                <p>“Meeting Drake was crazy. We actually had a real conversation about music and business. It wasn’t just pictures — it was real time together.”</p>
+                <div class="testimonial-user">
+                    <div class="avatar">M</div>
+                    <div>
+                        <h4>Marcus Johnson</h4>
+                        <span>Studio meetup • 10 hour</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6 -->
+            <div class="testimonial-card">
+                <p>“I met Zendaya and she was so genuine. We talked about fashion, life, and everything. It felt so natural, not staged at all.”</p>
+                <div class="testimonial-user">
+                    <div class="avatar">L</div>
+                    <div>
+                        <h4>Lauren Davis</h4>
+                        <span>VIP session • 40 days</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7 -->
+            <div class="testimonial-card">
+                <p>“I met Rihanna and we actually spent time just talking and laughing. She made the whole experience comfortable and unforgettable.”</p>
+                <div class="testimonial-user">
+                    <div class="avatar">K</div>
+                    <div>
+                        <h4>Kevin White</h4>
+                        <span>Private hangout • 34 hour</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 8 -->
+            <div class="testimonial-card">
+                <p>“I met Leonardo DiCaprio and we had a deep conversation about life and movies. It didn’t feel like a fan moment, it felt real.”</p>
+                <div class="testimonial-user">
+                    <div class="avatar">O</div>
+                    <div>
+                        <h4>Olivia Martinez</h4>
+                        <span>Private session • NYC</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 9 -->
+            <div class="testimonial-card">
+                <p>“Meeting Beyoncé was a dream come true. She was calm, warm, and we spent real time talking. Not rushed at all.”</p>
+                <div class="testimonial-user">
+                    <div class="avatar">C</div>
+                    <div>
+                        <h4>Chris Walker</h4>
+                        <span>VIP meetup • One year together</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Stats -->
+        <div class="testimonial-stats">
+            <div class="stat">
+                <h3>5,400+</h3>
+                <p>Successful Meetups</p>
+            </div>
+            <div class="stat">
+                <h3>98%</h3>
+                <p>Positive Reviews</p>
+            </div>
+            <div class="stat">
+                <h3>30–90 days</h3>
+                <p>Average Time Together</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+    <!-- Services Section -->
+    <section id="services" class="section section-dark">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">What We Offer</h2>
+                <p class="section-subtitle">Comprehensive celebrity booking and management services</p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🎯</div>
+                    <h3>Direct Celebrity Booking</h3>
+                    <p>Seamless booking platform connecting fans directly with their favorite celebrities</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🎟️</div>
+                    <h3>Event Management</h3>
+                    <p>Full-service event planning including venues, security, and logistics</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🔒</div>
+                    <h3>Secure Transactions</h3>
+                    <p>Bank-level security for all bookings and personal information</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">📸</div>
+                    <h3>Meet & Greet Coordination</h3>
+                    <p>Professional meet and greet sessions with photo opportunities</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🚗</div>
+                    <h3>VIP Transportation</h3>
+                    <p>Luxury transportation and accommodation arrangements</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">💎</div>
+                    <h3>Exclusive Experiences</h3>
+                    <p>One-of-a-kind private sessions and backstage access</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">How It Works</h2>
+                <p class="section-subtitle">Simple, secure, and professional process</p>
+            </div>
+
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h3>Celebrity Onboarding</h3>
+                        <p>We create custom booking pages for your celebrity clients with their branding and preferences</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h3>Fan Bookings</h3>
+                        <p>Fans submit booking requests through secure, easy-to-use forms</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h3>Management Dashboard</h3>
+                        <p>Review and manage all bookings through your admin dashboard</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">04</div>
+                    <div class="step-content">
+                        <h3>Logistics & Coordination</h3>
+                        <p>Our team handles all arrangements including security, transport, and venues</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">05</div>
+                    <div class="step-content">
+                        <h3>Experience Delivery</h3>
+                        <p>We ensure flawless execution of every celebrity-fan interaction</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">06</div>
+                    <div class="step-content">
+                        <h3>Post-Event Support</h3>
+                        <p>Follow-up and feedback collection to continuously improve experiences</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sample Clients Section -->
+    <section id="clients" class="section section-dark">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Meet Our Celebrities</h2>
+                <p class="section-subtitle">See how we showcase your talent</p>
+            </div>
+
+            <div class="client-cards">
+                <div class="client-card">
+                    <div class="client-image" style="background-image: url('https://images.unsplash.com/photo-1772587023108-61e60c18537a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb25jZXJ0JTIwc3RhZ2UlMjBwZXJmb3JtZXIlMjBzcG90bGlnaHR8ZW58MXx8fHwxNzc1Mzk2OTQxfDA&ixlib=rb-4.1.0&q=80&w=1080')"></div>
+                    <div class="client-content">
+                        <h3>Taylor Swift</h3>
+                        <p>Global Superstar • Music Icon</p>
+                        <a href="/celeb/taylor-swift" class="btn btn-primary">View Page</a>
+                    </div>
+                </div>
+
+                <div class="client-card">
+                    <div class="client-image" style="background-image: url('https://images.unsplash.com/photo-1765560008448-612e4b17877f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjZWxlYnJpdHklMjByZWQlMjBjYXJwZXQlMjBldmVudHxlbnwxfHx8fDE3NzUzOTY5NDJ8MA&ixlib=rb-4.1.0&q=80&w=1080')"></div>
+                    <div class="client-content">
+                        <h3>Default Artist</h3>
+                        <p>Celebrity Template • Customizable</p>
+                        <a href="/celeb/default" class="btn btn-primary">View Page</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Why Partner With Elite Xperience?</h2>
+            </div>
+
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <div class="benefit-icon">✓</div>
+                    <div class="benefit-content">
+                        <h3>Revenue Growth</h3>
+                        <p>Increase earnings with direct fan engagement opportunities</p>
+                    </div>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-icon">✓</div>
+                    <div class="benefit-content">
+                        <h3>Brand Control</h3>
+                        <p>Maintain complete control over celebrity image and pricing</p>
+                    </div>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-icon">✓</div>
+                    <div class="benefit-content">
+                        <h3>Professional Management</h3>
+                        <p>Dedicated team handling all logistics and coordination</p>
+                    </div>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-icon">✓</div>
+                    <div class="benefit-content">
+                        <h3>Security & Privacy</h3>
+                        <p>Top-tier security protocols protecting your clients</p>
+                    </div>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-icon">✓</div>
+                    <div class="benefit-content">
+                        <h3>Analytics Dashboard</h3>
+                        <p>Real-time insights into bookings and fan engagement</p>
+                    </div>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-icon">✓</div>
+                    <div class="benefit-content">
+                        <h3>24/7 Support</h3>
+                        <p>Round-the-clock support for you and your clients</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section section-dark">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Ready to Get Started?</h2>
+                <p class="section-subtitle">Join hundreds of celebrity managers who trust Elite Xperience</p>
+            </div>
+
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <h3>📧 Email</h3>
+                        <p>elitexperience.teams@gmail.com</p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>📞 Phone</h3>
+                        <p>+19125483232 (Whatsapp Only)</p>
+                    </div>
+
+                     <div class="contact-box">
+
+            <p><b>Need faster response?</b></p>
+
+            <a href="https://wa.me/19125483232" class="btn btn-whatsapp" target="_blank">
+                💬 WhatsApp Us
+            </a>
+
+            <a href="https://t.me/elitexperience" class="btn btn-telegram" target="_blank">
+                📩 Telegram (@elitexperience)
+            </a>
+
+        </div>
+
+
+                    <div class="contact-item">
+                        <h3>📍 Office</h3>
+                        <p>123 Celebrity Boulevard<br>Los Angeles, CA 90028</p>
+                    </div>
+
+                </div>
+
+               
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Elite Xperience</h3>
+                    <p>Premium celebrity booking and fan experience management</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#clients">Clients</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="/privacy">Privacy Policy</a></li>
+                        <li><a href="/terms">Terms of Service</a></li>
+                        <li><a href="/cookies">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Elite Xperience. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+
+    
+</body>
+</html>
