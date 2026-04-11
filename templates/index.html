@@ -309,25 +309,24 @@
                 <p class="section-subtitle">See how we showcase your talent</p>
             </div>
 
-            <div class="client-cards">
-                <div class="client-card">
-                    <div class="client-image" style="background-image: url('https://images.unsplash.com/photo-1772587023108-61e60c18537a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb25jZXJ0JTIwc3RhZ2UlMjBwZXJmb3JtZXIlMjBzcG90bGlnaHR8ZW58MXx8fHwxNzc1Mzk2OTQxfDA&ixlib=rb-4.1.0&q=80&w=1080')"></div>
-                    <div class="client-content">
-                        <h3>Taylor Swift</h3>
-                        <p>Global Superstar • Music Icon</p>
-                        <a href="/celeb/taylor-swift" class="btn btn-primary">View Page</a>
-                    </div>
-                </div>
 
-                <div class="client-card">
-                    <div class="client-image" style="background-image: url('https://images.unsplash.com/photo-1765560008448-612e4b17877f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjZWxlYnJpdHklMjByZWQlMjBjYXJwZXQlMjBldmVudHxlbnwxfHx8fDE3NzUzOTY5NDJ8MA&ixlib=rb-4.1.0&q=80&w=1080')"></div>
-                    <div class="client-content">
-                        <h3>Default Artist</h3>
-                        <p>Celebrity Template • Customizable</p>
-                        <a href="/celeb/default" class="btn btn-primary">View Page</a>
-                    </div>
-                </div>
+
+            <div class="client-cards">
+        {% for key, celeb in celeb_data.items() %}
+
+        {% if key != 'default' %}
+        <div class="client-card">
+            <div class="client-image" 
+                 style="background-image: url('{{ celeb.heroImage }}')"></div>
+            <div class="client-content">
+                <h3>{{ celeb.name }}</h3>
+                <p>{{ celeb.interests[0] if celeb.interests else 'Celebrity' }} • Exclusive Experiences</p>
+                <a href="/celeb/{{ key }}" class="btn btn-primary">View Page</a>
             </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+</div>
         </div>
     </section>
 
@@ -470,6 +469,6 @@
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 
 
-    
+
 </body>
 </html>
