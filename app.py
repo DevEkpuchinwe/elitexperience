@@ -234,12 +234,15 @@ celeb_data = {
         "interests": ["Space Exploration", "Electric Vehicles", "AI Innovation", "Memes and Humor"],
         "heroImage": "https://img.freepik.com/premium-photo/elon-musk-portrait_895118-25088.jpg",
         "photos": [
+            "https://i.ytimg.com/vi/cBAq21jErqo/maxresdefault.jpg",
+            "https://images4.alphacoders.com/139/thumbbig-1391939.webp",
   "https://img.freepik.com/premium-photo/elon-musk-portrait_895118-25088.jpg",
-  "https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=1080",
-  "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=1080",
-  "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?q=80&w=1080",
-  "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=1080",
-  "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=1080"
+  "https://images8.alphacoders.com/112/thumbbig-1128981.webp",
+  "https://images6.alphacoders.com/138/thumbbig-1380868.webp",
+  "https://images-prod.dazeddigital.com/1400/azure/dazed-prod/1340/3/1343778.jpg",
+  "https://images8.alphacoders.com/112/thumbbig-1128980.webp",
+  "https://images4.alphacoders.com/138/thumbbig-1380929.webp",
+  
 ]
     },
     "carrie-underwood": {
