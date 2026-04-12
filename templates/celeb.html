@@ -63,7 +63,44 @@
             </div>
         </div>
     </section>
+    
+     <!-- Get to Know Section -->
+    <section id="about" class="section section-dark">
+        <div class="container">
+            <div class="text-center max-w-800">
+                <h2 class="section-title">Get to Know {{ celeb.name }}</h2>
+                <p class="bio-text">{{ celeb.bio }}</p>
+                
+                <div class="interests-tags">
+                    {% for interest in celeb.interests %}
+                    <span class="tag">{{ interest }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Photos Gallery -->
+    <section id="photos" class="section section-dark">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Gallery</h2>
+                <p class="section-subtitle">Moments from previous experiences</p>
+            </div>
+
+            <div class="gallery-grid">
+                {% for photo in celeb.photos %}
+                <div class="gallery-item">
+                    <img src="{{ photo }}" alt="Gallery image">
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+         <div class="text-center mt-4">
+                <a href="{{ url_for('booking_page', celeb_name=celeb_name) }}" class="btn btn-large btn-gradient">⏱️ Book Your Spot With {{ celeb.name }}</a>
+            </div>
+    </section>
+      
     <!-- Testimonials Section -->
 <section class="testimonials section section-dark">
     <div class="container">
@@ -308,21 +345,7 @@
         </div>
     </section>
 
-    <!-- Get to Know Section -->
-    <section id="about" class="section section-dark">
-        <div class="container">
-            <div class="text-center max-w-800">
-                <h2 class="section-title">Get to Know {{ celeb.name }}</h2>
-                <p class="bio-text">{{ celeb.bio }}</p>
-                
-                <div class="interests-tags">
-                    {% for interest in celeb.interests %}
-                    <span class="tag">{{ interest }}</span>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-    </section>
+   
 
     <!-- Services Section -->
     <section id="services" class="section">
@@ -382,23 +405,7 @@
         </div>
     </section>
 
-    <!-- Photos Gallery -->
-    <section id="photos" class="section section-dark">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Gallery</h2>
-                <p class="section-subtitle">Moments from previous experiences</p>
-            </div>
-
-            <div class="gallery-grid">
-                {% for photo in celeb.photos %}
-                <div class="gallery-item">
-                    <img src="{{ photo }}" alt="Gallery image">
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-    </section>
+    
 
     <!-- Process Section -->
     <section id="process" class="section">

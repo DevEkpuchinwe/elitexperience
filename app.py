@@ -148,6 +148,56 @@ def save_lead(data):
 
 
 celeb_data = {
+     "sydney-sweeney": {
+    "name": "Sydney Sweeney",
+    "management": "Brillstein Entertainment Partners",
+    "tagline": "Your Dream Moment with Sydney Sweeney",
+    "heroText": "Don't Miss Your Chance! Limited spots available for exclusive meet & greets, private time, and VIP experiences.",
+    "stats": {
+        "meetGreets": 780,
+        "privateTime": 92,
+        "ticketsSold": 16800,
+        "fanCards": 12450
+    },
+    "bio": "Sydney Sweeney is a talented American actress and producer known for her breakout roles in Euphoria as Cassie Howard and The White Lotus. She has earned multiple Emmy nominations and stars in major films like Anyone But You, Immaculate, and Echo Valley. She is also the founder of her production company Fifty-Fifty Films.",
+    "interests": ["Acting", "Producing", "Fashion", "Fitness", "Mixed Martial Arts"],
+    "heroImage": "https://i.pinimg.com/1200x/f9/b3/5c/f9b35c27a89fddbb84f14abff68b2a7f.jpg",
+    "photos": [
+        "https://i.pinimg.com/736x/bc/ce/8c/bcce8cf74c9897c4d29fd2c31f6b1d54.jpg",
+        "https://i.pinimg.com/736x/29/14/f8/2914f8003031dc1366dc0d560699756d.jpg",
+        "https://i.pinimg.com/1200x/8c/bd/fc/8cbdfc13661202532d5471f88a3c43f4.jpg",
+        "https://i.pinimg.com/736x/54/fe/80/54fe802d3154cd9811eb87102d203e8a.jpg",
+        "https://i.pinimg.com/736x/54/fe/80/54fe802d3154cd9811eb87102d203e8a.jpg",
+        "https://i.pinimg.com/1200x/f9/b3/5c/f9b35c27a89fddbb84f14abff68b2a7f.jpg",
+        "https://i.pinimg.com/736x/f3/e0/24/f3e02402d45504967164880fae883501.jpg",
+    ]
+},
+   "thane-rivers": {
+        "name": "Thane Rivers",
+        "management": "Independent (Self-Managed)",
+        "tagline": "Your Dream Moment with the Bearded Viking",
+        "heroText": "Don't Miss Your Chance! Limited spots available for exclusive meet & greets, private time, and VIP experiences.",
+        "stats": {
+            "meetGreets": 856,
+            "privateTime": 124,
+            "ticketsSold": 9870,
+            "fanCards": 2456
+        },
+        "bio": "Thane Rivers, known as the Bearded Viking, is a popular social media personality and Instagram star famous for positive affirmations, lifestyle content, and making people smile. He connects with fans through heartfelt messages and uplifting vibes.",
+        "interests": ["Positive Affirmations", "Coffee Mugs", "Lifestyle Content", "Making Fans Happy"],
+        #"heroImage": "https://i.pinimg.com/736x/3e/44/41/3e4441961ecf89753573c39725676915.jpg",
+        "heroImage": "https://ksplutifhhfhncjlwjxo.supabase.co/storage/v1/object/public/celebs/f5273171d949336f59a16f2c82566354.jpg",
+        "photos": [
+            "https://i.pinimg.com/736x/3e/44/41/3e4441961ecf89753573c39725676915.jpg",
+            "https://ctimages.servefilesonly.com/resize/?url=https://public.onlyfans.com/files/g/gx/gxu/gxuecc0ge5b1avnkd41w1neznmrgdyry1658083671/250003521/avatar.jpg&w=480&q=100",
+            "https://ksplutifhhfhncjlwjxo.supabase.co/storage/v1/object/public/celebs/f5273171d949336f59a16f2c82566354.jpg",
+            "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxleGNsdXNpdmUlMjB2aXAlMjBiYWNrc3RhZ2V8ZW58MXx8fHwxNzc1Mzk2OTQyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+            "https://ksplutifhhfhncjlwjxo.supabase.co/storage/v1/object/public/celebs/thanemeet.webp",
+            "https://ksplutifhhfhncjlwjxo.supabase.co/storage/v1/object/public/celebs/thaneoncap.webp",
+            "https://ksplutifhhfhncjlwjxo.supabase.co/storage/v1/object/public/celebs/thanewithflowerplane.jpg",
+            "https://i.pinimg.com/736x/02/8a/ec/028aec4f2b1d40e2c0c76c4539609cc0.jpg"
+        ]
+    },
     "taylor-swift": {
         "name": "Taylor Swift",
         "management": "TN Management",
@@ -171,31 +221,7 @@ celeb_data = {
             "https://images.unsplash.com/photo-1771402899438-55fd9b239c6f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBzZWN1cml0eSUyMGd1YXJkc3xlbnwxfHx8fDE3NzUzOTY5NDN8MA&ixlib=rb-4.1.0&q=80&w=1080"
         ]
     },
-    "thane-rivers": {
-        "name": "Thane Rivers",
-        "management": "Independent (Self-Managed)",
-        "tagline": "Your Dream Moment with the Bearded Viking",
-        "heroText": "Don't Miss Your Chance! Limited spots available for exclusive meet & greets, private time, and VIP experiences.",
-        "stats": {
-            "meetGreets": 856,
-            "privateTime": 124,
-            "ticketsSold": 9870,
-            "fanCards": 2456
-        },
-        "bio": "Thane Rivers, known as the Bearded Viking, is a popular social media personality and Instagram star famous for positive affirmations, lifestyle content, and making people smile. He connects with fans through heartfelt messages and uplifting vibes.",
-        "interests": ["Positive Affirmations", "Coffee Mugs", "Lifestyle Content", "Making Fans Happy"],
-        #"heroImage": "https://i.pinimg.com/736x/3e/44/41/3e4441961ecf89753573c39725676915.jpg",
-        "heroImage": "https://ksplutifhhfhncjlwjxo.supabase.co/storage/v1/object/public/celebs/f5273171d949336f59a16f2c82566354.jpg",
-        "photos": [
-            "https://i.pinimg.com/736x/3e/44/41/3e4441961ecf89753573c39725676915.jpg",
-            "https://ctimages.servefilesonly.com/resize/?url=https://public.onlyfans.com/files/g/gx/gxu/gxuecc0ge5b1avnkd41w1neznmrgdyry1658083671/250003521/avatar.jpg&w=480&q=100",
-            "https://ksplutifhhfhncjlwjxo.supabase.co/storage/v1/object/public/celebs/f5273171d949336f59a16f2c82566354.jpg",
-            "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxleGNsdXNpdmUlMjB2aXAlMjBiYWNrc3RhZ2V8ZW58MXx8fHwxNzc1Mzk2OTQyfDA&ixlib=rb-4.1.0&q=80&w=1080",
-            "https://ksplutifhhfhncjlwjxo.supabase.co/storage/v1/object/public/celebs/thanemeet.webp",
-            "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBldmVudCUyMHZlbnVlfGVufDF8fHx8MTc3NTM5Njk0M3ww&ixlib=rb-4.1.0&q=80&w=1080",
-            "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBzZWN1cml0eSUyMGd1YXJkc3xlbnwxfHx8fDE3NzUzOTY5NDN8MA&ixlib=rb-4.1.0&q=80&w=1080",
-        ]
-    },
+    
     "tony-carreira": {
         "name": "Tony Carreira",
         "management": "RegiConcerto / Self-Managed Elements",
