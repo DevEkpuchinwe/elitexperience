@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Views & Metadata - Admin</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .reset-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .reset-btn:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+        .refresh-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header class="header admin-header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">📊 Page Views & Metadata</div>
+                <div>
+                    <a href="{{ url_for('admin') }}" class="btn btn-secondary">← Back to Dashboard</a>
+                    <a href="{{ url_for('admin_logout') }}" class="btn btn-secondary">Logout</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="admin-dashboard">
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 15px;">
+                <h2>Page Views & Visitor Metadata</h2>
+                
+                <div>
+                    <button onclick="refreshPageViews()" class="refresh-btn">🔄 Refresh View</button>
+                    <button onclick="resetAllStats()" class="reset-btn" style="margin-left: 10px;">
+                        🗑️ Reset All Stats
+                    </button>
+                </div>
+            </div>
+
+            <!-- Summary -->
+            <div id="summaryStats" class="admin-stats">
+                <!-- Populated by JS -->
+            </div>
+
+            <h3 style="margin: 2.5rem 0 1rem;">Views by Celebrity / Page</h3>
+            <div id="celebStatsTable"></div>
+
+            <hr style="margin: 3rem 0;">
+
+            <h3>Detailed Metadata (Latest 500)</h3>
+            <div style="overflow-x: auto;">
+                <table class="metadata-table" id="viewsTable">
+                    <thead>
+                        <tr>
+                            <th>Date & Time</th>
+                            <th>Page</th>
+                            <th>Celebrity</th>
+                            <th>IP Address</th>
+                            <th>Referrer</th>
+                            <th class="user-agent">User Agent</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function refreshPageViews() {
+            const btn = document.querySelector('.refresh-btn');
+            btn.textContent = '🔄 Refreshing...';
+            
+            try {
+                const res = await fetch('/admin/pageviews/data');
+                const data = await res.json();
+
+                // Update summary
+                document.getElementById('summaryStats').innerHTML = `
+                    <div class="stat-card">
+                        <div class="stat-number">${data.total_views}</div>
+                        <div class="stat-label">Total Page Views</div>
+                    </div>
+                `;
+
+                // Update celeb stats
+                let html = `<table class="admin-table"><thead><tr><th>Page / Celebrity</th><th>Views</th></tr></thead><tbody>`;
+                data.celeb_stats.forEach(s => {
+                    html += `<tr><td>${s.celeb_name || 'Home / Other'}</td><td><strong>${s.count}</strong></td></tr>`;
+                });
+                html += `</tbody></table>`;
+                document.getElementById('celebStatsTable').innerHTML = html;
+
+                // Update table
+                let tbody = '';
+                data.page_views.forEach(v => {
+                    tbody += `
+                        <tr>
+                            <td>${v.viewed_at}</td>
+                            <td>${v.path}</td>
+                            <td>${v.celeb_name || '-'}</td>
+                            <td>${v.ip_address}</td>
+                            <td style="max-width:280px; overflow:hidden; text-overflow:ellipsis;">${v.referrer || '-'}</td>
+                            <td class="user-agent" title="${v.user_agent}">${v.user_agent.substring(0,100)}${v.user_agent.length > 100 ? '...' : ''}</td>
+                        </tr>`;
+                });
+                document.getElementById('tableBody').innerHTML = tbody || '<tr><td colspan="6" style="text-align:center; padding:40px;">No data yet</td></tr>';
+
+            } catch (e) {
+                alert("Failed to load data");
+            } finally {
+                btn.textContent = '🔄 Refresh View';
+            }
+        }
+
+        async function resetAllStats() {
+            if (!confirm("⚠️ WARNING: This will permanently delete ALL page view records.\n\nAre you sure you want to reset the stats?")) {
+                return;
+            }
+
+            try {
+                const res = await fetch('/admin/pageviews/reset', { method: 'POST' });
+                const data = await res.json();
+
+                if (data.success) {
+                    alert("✅ All page view statistics have been reset successfully.");
+                    refreshPageViews();   // Refresh the view after reset
+                } else {
+                    alert("Failed to reset stats.");
+                }
+            } catch (e) {
+                alert("Error connecting to server.");
+            }
+        }
+
+        // Load data when page opens
+        window.onload = refreshPageViews;
+    </script>
+</body>
+</html>

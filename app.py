@@ -49,6 +49,17 @@ class Lead(Base):
     createdAt = Column(DateTime, default=datetime.utcnow)
 
 
+class PageView(Base):  # NEW: Tracking opens + metadata
+    __tablename__ = "page_views"
+    id = Column(String, primary_key=True)
+    path = Column(String)
+    celeb_name = Column(String, nullable=True)  # e.g. "sydney-sweeney" or None
+    ip_address = Column(String)
+    user_agent = Column(Text)
+    referrer = Column(Text, nullable=True)
+    viewed_at = Column(DateTime, default=datetime.utcnow)
+
+
 Base.metadata.create_all(engine)
 
 # KEEP VARIABLE (not used anymore but not removed)
@@ -143,6 +154,29 @@ def save_lead(data):
     session.add(lead)
     session.commit()
     session.close()
+
+def get_db_session():
+    return SessionLocal()
+
+def save_page_view(path, celeb_name=None):
+    session = get_db_session()
+    view = PageView(
+        id=str(uuid.uuid4()),
+        path=path,
+        celeb_name=celeb_name,
+        ip_address=request.remote_addr,
+        user_agent=request.headers.get('User-Agent'),
+        referrer=request.referrer
+    )
+    session.add(view)
+    session.commit()
+    session.close()
+
+def get_page_views_count():
+    session = get_db_session()
+    count = session.query(PageView).count()
+    session.close()
+    return count
 
 # -------------------- YOUR ORIGINAL DATA --------------------
 
@@ -512,6 +546,24 @@ services = [
 ]
 
 
+# -------------------- BEFORE REQUEST: Tracking --------------------
+@app.before_request
+def track_page_view():
+    if request.method == 'GET':
+        path = request.path
+        celeb_name = None
+        if path.startswith('/celeb/'):
+            parts = path.split('/')
+            if len(parts) > 2:
+                celeb_name = parts[2]
+        elif path == '/':
+            celeb_name = 'home'
+        elif path.startswith('/admin'):
+            celeb_name = 'admin'
+        
+        if celeb_name or path in ['/', '/legal', '/privacy', '/terms', '/cookies']:
+            save_page_view(path, celeb_name)
+
 # -------------------- ROUTES --------------------
 
 @app.route('/')
@@ -548,6 +600,7 @@ def submit_contact():
 def celeb_page(celeb_name):
     celeb = celeb_data.get(celeb_name, celeb_data['default'])
     return render_template('celeb.html', celeb=celeb, celeb_name=celeb_name)
+
 
 @app.route('/celeb/<celeb_name>/book', methods=['GET', 'POST'])
 def booking_page(celeb_name):
@@ -619,10 +672,95 @@ def admin():
     bookings = get_bookings()
     db_session = SessionLocal()
     leads = db_session.query(Lead).order_by(Lead.createdAt.desc()).all()
+    total_views = get_page_views_count()  # NEW
     db_session.close()
 
  
-    return render_template('admin_dashboard.html', bookings=bookings, leads=leads)
+    return render_template('admin_dashboard.html', bookings=bookings, leads=leads, total_views=total_views)
+
+@app.route('/admin/pageviews')
+def admin_pageviews():
+    if not session.get('admin_authenticated'):
+        flash('Please login first', 'error')
+        return redirect(url_for('admin'))
+    
+    db_session = SessionLocal()
+    # Get all page views, newest first, limit to 500 for performance
+    page_views = db_session.query(PageView)\
+        .order_by(PageView.viewed_at.desc())\
+        .limit(500).all()
+    
+    # Optional: count per celebrity/page
+    from sqlalchemy import func
+    celeb_stats = db_session.query(
+        PageView.celeb_name,
+        func.count(PageView.id).label('views')
+    ).group_by(PageView.celeb_name)\
+     .order_by(func.count(PageView.id).desc()).all()
+    
+    db_session.close()
+    
+    return render_template('admin_pageviews.html', 
+                           page_views=page_views,
+                           celeb_stats=celeb_stats)
+
+@app.route('/admin/pageviews/data')
+def admin_pageviews_data():
+    if not session.get('admin_authenticated'):
+        return jsonify({"error": "Unauthorized"}), 401
+    
+    db_session = SessionLocal()
+    
+    # Latest page views
+    page_views = db_session.query(PageView)\
+        .order_by(PageView.viewed_at.desc())\
+        .limit(500).all()
+    
+    # Stats by celebrity/page
+    from sqlalchemy import func
+    celeb_stats = db_session.query(
+        PageView.celeb_name.label('celeb_name'),
+        func.count(PageView.id).label('count')
+    ).group_by(PageView.celeb_name)\
+     .order_by(func.count(PageView.id).desc()).all()
+    
+    total_views = db_session.query(PageView).count()
+    
+    db_session.close()
+
+    # Convert to JSON-friendly format
+    views_list = [{
+        "viewed_at": v.viewed_at.strftime('%Y-%m-%d %H:%M:%S'),
+        "path": v.path,
+        "celeb_name": v.celeb_name,
+        "ip_address": v.ip_address,
+        "referrer": v.referrer,
+        "user_agent": v.user_agent or ""
+    } for v in page_views]
+
+    stats_list = [{"celeb_name": s.celeb_name, "count": s.count} for s in celeb_stats]
+
+    return jsonify({
+        "total_views": total_views,
+        "page_views": views_list,
+        "celeb_stats": stats_list
+    })
+
+# NEW: Reset (delete all) page views
+@app.route('/admin/pageviews/reset', methods=['POST'])
+def reset_pageviews():
+    if not session.get('admin_authenticated'):
+        return jsonify({"success": False, "error": "Unauthorized"}), 401
+    
+    try:
+        db_session = SessionLocal()
+        db_session.query(PageView).delete()
+        db_session.commit()
+        db_session.close()
+        return jsonify({"success": True})
+    except Exception as e:
+        print("Reset error:", e)
+        return jsonify({"success": False}), 500
 
 @app.route('/admin/send-email', methods=['POST'])
 def send_bulk_email():

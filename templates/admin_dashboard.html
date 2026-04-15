@@ -43,6 +43,10 @@
                     <div class="stat-number">{{ bookings|selectattr('emailSent', 'equalto', False)|list|length }}</div>
                     <div class="stat-label">Pending</div>
                 </div>
+                <div class="stat-card">
+    <div class="stat-number">{{ total_views }}</div>
+    <div class="stat-label">Total Page Views</div>
+</div>
             </div>
 
             <!-- Controls -->
@@ -54,6 +58,12 @@
                     <button class="btn btn-secondary" onclick="filterByStatus('pending')">Pending</button>
                 </div>
             </div>
+
+            <div style="margin: 15px 0;">
+    <a href="{{ url_for('admin_pageviews') }}" class="btn btn-primary">
+        📊 View Full Page Views & Metadata
+    </a>
+</div>
 
             <!-- Email Composer -->
             <div id="emailComposer" class="email-composer" style="display: none;">
